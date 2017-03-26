@@ -1,11 +1,13 @@
 import pygame
 from player import PlayerShip
+from alien_1 import AlienOne
+from random import choice
 
-def update_screen(stg, screen, player, p_shot):
+def update_screen(stg, screen, player, p_shot, aliens_1):
     # it's refreshing the screen color each cycle
     #screen.fill(stg.bg_color)
     player.blitme()
-    #aliens.draw(screen)
+    aliens_1.draw(screen)
 
     #sb.show_score()
 
@@ -33,17 +35,19 @@ def collission_handling(stg, screen, player, p_shot):
             stats.score += ai_settings.alien_points * len(aliens)
             sb.prep_score()
 '''
-def repop(ai_settings, screen, ship, aliens, bullets):
+'''def repop(ai_settings, screen, ship, aliens, bullets):
     if len(aliens) == 0:
         bullets.empty()
         create_fleet(ai_settings, screen, ship, aliens)
-
+'''
+'''
 def update_aliens(ai_settings, stats, screen, sb, ship, aliens, bullets):
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
     if pygame.sprite.spritecollideany(ship, aliens):
         ship_hit(ai_settings, stats, screen, sb, ship, aliens, bullets)
     check_aliens_bottom(ai_settings, stats, screen, sb, ship, aliens, bullets)
+'''
 
 def bg_scroll(stg, screen):
     stg.bg_y += stg.bg_scroll_speed
@@ -56,3 +60,20 @@ def bg_scroll(stg, screen):
         stg.bg_y1 = -stg.bg_rect.height
 
 
+def create_alien_1(stg, screen, aliens_1):
+    alien_1 = AlienOne(stg, screen)
+    alien_width = alien_1.rect.width
+    alien_height = alien_1.rect.height
+    alien_1.x = alien_width * 2  # + (2 * alien_width * alien_number)
+    alien_1.rect.x = alien_1.x
+    alien_1.rect.y = alien_height # + 2 * alien_height * row_number
+    aliens_1.add(alien_1)
+
+def alien_1_random(stg, screen, aliens_1):
+    chance = choice(list(range(1,80)))
+    if chance == 6:
+        create_alien_1(stg, screen, aliens_1)
+
+
+def update_aliens_1(stg, screen, aliens_1):
+    aliens_1.update(stg, screen)

@@ -25,11 +25,11 @@ class PlayerShip(Sprite):
     def update(self):
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.center += self.stg.player_speed
-        elif self.moving_left and self.rect.left > 0:
+        if self.moving_left and self.rect.left > 0:
             self.center -= self.stg.player_speed
         if self.moving_up and self.rect.top >= 0:
             self.y_axis -= self.stg.player_speed
-        elif self.moving_down and self.rect.bottom <= self.screen_rect.bottom:
+        if self.moving_down and self.rect.bottom <= self.screen_rect.bottom:
             self.y_axis += self.stg.player_speed
 
         self.rect.bottom = self.y_axis
