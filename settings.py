@@ -5,7 +5,7 @@ class Settings():
     def __init__(self):
 
         '''screen settings'''
-        self.screen_width = 700
+        self.screen_width = 1400
         self.screen_height = 700
         self.fps = 30
         self.bg_color = (230,230,230)
