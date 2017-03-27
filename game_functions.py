@@ -50,14 +50,14 @@ def update_aliens(ai_settings, stats, screen, sb, ship, aliens, bullets):
 '''
 
 def bg_scroll(stg, screen):
-    stg.bg_y += stg.bg_scroll_speed
-    stg.bg_y1 += stg.bg_scroll_speed
+    stg.bg_x -= stg.bg_scroll_speed
+    stg.bg_x1 -= stg.bg_scroll_speed
     screen.blit(stg.bg_img, (stg.bg_x, stg.bg_y))
     screen.blit(stg.bg_img, (stg.bg_x1, stg.bg_y1))
-    if stg.bg_y > stg.bg_rect.height:
-        stg.bg_y = -stg.bg_rect.height
-    if stg.bg_y1 > stg.bg_rect.height:
-        stg.bg_y1 = -stg.bg_rect.height
+    if stg.bg_x < -stg.bg_rect.width:
+        stg.bg_x = stg.bg_rect.width
+    if stg.bg_x1 < -stg.bg_rect.width:
+        stg.bg_x1 = stg.bg_rect.width
 
 
 def create_alien_1(stg, screen, aliens_1):
