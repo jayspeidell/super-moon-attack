@@ -64,9 +64,11 @@ def create_alien_1(stg, screen, aliens_1):
     alien_1 = AlienOne(stg, screen)
     alien_width = alien_1.rect.width
     alien_height = alien_1.rect.height
-    alien_1.x = alien_width * 2  # + (2 * alien_width * alien_number)
+    right_pos = screen.get_rect()
+    right_pos = right_pos.width
+    alien_1.x = right_pos #alien_width * 2  # + (2 * alien_width * alien_number)
     alien_1.rect.x = alien_1.x
-    alien_1.rect.y = alien_height # + 2 * alien_height * row_number
+    alien_1.rect.y = alien_height * 5 # + 2 * alien_height * row_number
     aliens_1.add(alien_1)
 
 def alien_1_random(stg, screen, aliens_1):
