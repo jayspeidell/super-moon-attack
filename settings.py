@@ -10,6 +10,9 @@ class Settings():
         self.fps = 120
         self.bg_color = (230, 230, 230)
 
+        '''scoreboard settings'''
+        self.sb_color = 230, 230, 230
+
         self.bg_img = pygame.image.load('images/stone.png')
         self.bg_img = pygame.transform.scale(self.bg_img, (self.screen_width, self.screen_height))
         self.bg_rect = self.bg_img.get_rect()
@@ -31,3 +34,4 @@ class Settings():
 
         '''alien_1 attributes'''
         self.alien_1_speed = 5
+        self.alien_1_points = 50

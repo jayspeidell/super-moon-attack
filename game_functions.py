@@ -3,13 +3,11 @@ from player import PlayerShip
 from alien_1 import AlienOne
 from random import choice
 
-def update_screen(stg, screen, player, p_shot, aliens_1):
-    # it's refreshing the screen color each cycle
-    #screen.fill(stg.bg_color)
+def update_screen(stg, screen, player, p_shot, aliens_1, sb):
     player.blitme()
     aliens_1.draw(screen)
 
-    #sb.show_score()
+    sb.show_score()
 
     for p_shot in p_shot.sprites():
         p_shot.draw_p_shot()
@@ -19,23 +17,24 @@ def update_screen(stg, screen, player, p_shot, aliens_1):
     # redraw screen with updates
     pygame.display.flip()
 
-def p_shot_update(stg, screen, player, p_shot):
+def p_shot_update(stg, screen, player, p_shot, aliens_1, stats):
     p_shot.update()
-    collission_handling(stg, screen, player, p_shot)
+    collission_handling(stg, screen, player, p_shot, aliens_1, stats)
     #repop(ai_settings, screen, ship, aliens, bullets)
 
-def collission_handling(stg, screen, player, p_shot):
+def collission_handling(stg, screen, player, p_shot, aliens_1, stats):
+    screen_width = screen.get_rect()
     for shot in p_shot.copy():
-        if shot.rect.bottom <= 0:
+        if shot.rect.left > screen_width.width:
             p_shot.remove(shot)
-'''
-    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    collisions = pygame.sprite.groupcollide(p_shot, aliens_1, True, True)
     if collisions:
         for aliens in collisions.values():
-            stats.score += ai_settings.alien_points * len(aliens)
-            sb.prep_score()
+            stats.player_score += stg.alien_1_points * len(aliens)
+            #sb.prep_score()
+
 '''
-'''def repop(ai_settings, screen, ship, aliens, bullets):
+def repop(ai_settings, screen, ship, aliens, bullets):
     if len(aliens) == 0:
         bullets.empty()
         create_fleet(ai_settings, screen, ship, aliens)
