@@ -3,6 +3,15 @@ from player import PlayerShip
 from alien_1 import AlienOne
 from random import choice
 
+'''
+Features to add:
+shot counter
+collision with ship and aliens
+aliens can shoot
+life counter
+
+'''
+
 def update_screen(stg, screen, player, p_shot, aliens_1, sb):
     player.blitme()
     aliens_1.draw(screen)
@@ -27,11 +36,21 @@ def collission_handling(stg, screen, player, p_shot, aliens_1, stats):
     for shot in p_shot.copy():
         if shot.rect.left > screen_width.width:
             p_shot.remove(shot)
-    collisions = pygame.sprite.groupcollide(p_shot, aliens_1, True, True)
+    attack_damage(stg, screen, player, p_shot, aliens_1, stats)
+
+def attack_damage(stg, screen, player, p_shot, aliens_1, stats):
+    collisions = pygame.sprite.groupcollide(p_shot, aliens_1, True, False)
     if collisions:
         for aliens in collisions.values():
-            stats.player_score += stg.alien_1_points * len(aliens)
+            for i in aliens:
+                #stats.player_score += stg.alien_1_points * len(aliens)
+                i.hit_points -= stg.p_dmg_1
+                print(aliens)
+                if i.hit_points <= 0:
+                    aliens_1.remove(i)
+                    stats.player_score += stg.alien_1_points * len(aliens)
             #sb.prep_score()
+
 
 '''
 def repop(ai_settings, screen, ship, aliens, bullets):

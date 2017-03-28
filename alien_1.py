@@ -10,6 +10,8 @@ class AlienOne(Sprite):
         self.stg = stg
         self.image = pygame.image.load('images/alien_1.png')
 
+        self.hit_points = 10
+
         self.rect = self.image.get_rect()
         self.screen_rect = self.screen.get_rect()
 
