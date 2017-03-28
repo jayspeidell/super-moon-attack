@@ -1,12 +1,12 @@
 import pygame
-from settings import Settings
-import game_functions as gf
-from player import PlayerShip
-import controls as ctrl
+from Settings.settings import Settings
+import Game_Functions.game_functions as gf
+from Actors.player import PlayerShip
+import Interface.controls as ctrl
 from pygame.sprite import Group
-from alien_1 import AlienOne
-from stats import GameStats
-from scoreboard import Scoreboard
+from Actors.alien_1 import AlienOne
+from Settings.stats import GameStats
+from Settings.scoreboard import Scoreboard
 
 
 def run_game():
@@ -33,7 +33,10 @@ def run_game():
         ctrl.check_events(stg, screen, player, p_shot)
         gf.alien_1_random(stg, screen, aliens_1)
         player.update()
+
+
         gf.p_shot_update(stg, screen, player, p_shot, aliens_1, stats)
+
         gf.update_aliens_1(stg, screen, aliens_1)
         gf.update_screen(stg, screen, player, p_shot, aliens_1, sb)
 

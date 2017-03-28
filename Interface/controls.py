@@ -1,6 +1,6 @@
 import pygame
 import sys
-from player_shot import PlayerShot
+from Weapons.player_shot import PlayerShot
 
 
 def fire_p_shot(stg, screen, player, p_shot):

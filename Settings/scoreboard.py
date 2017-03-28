@@ -1,5 +1,5 @@
 import pygame.font
-from player import PlayerShip
+from Actors.player import PlayerShip
 from pygame.sprite import Group
 
 class Scoreboard():

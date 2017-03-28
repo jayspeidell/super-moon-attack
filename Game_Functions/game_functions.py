@@ -1,7 +1,8 @@
 import pygame
-from player import PlayerShip
-from alien_1 import AlienOne
+from Actors.player import PlayerShip
+from Actors.alien_1 import AlienOne
 from random import choice
+from Weapons.weapons_settings import Weapons as weapon
 
 '''
 Features to add:
@@ -49,6 +50,7 @@ def collission_handling(stg, screen, player, bullets, aliens_1, stats):
 
 def attack_damage(stg, screen, player, bullets, aliens_1, stats):
     collisions = pygame.sprite.groupcollide(bullets, aliens_1, True, False)
+    '''attack selector function'''
     if collisions:
         for aliens in collisions.values():
             for i in aliens:
