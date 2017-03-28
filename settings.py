@@ -25,6 +25,7 @@ class Settings():
         '''ship attributes'''
         self.player_speed = 8
 
+        self.shot_type = 1
         '''player bullet level 1 attributes'''
         self.p_shot_speed = 8
         self.p_shots_allowed = 7

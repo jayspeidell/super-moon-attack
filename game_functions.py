@@ -5,11 +5,18 @@ from random import choice
 
 '''
 Features to add:
-shot counter
-collision with ship and aliens
-aliens can shoot
-life counter
-
+1 hitting alien hurts player
+2 aliens can shoot
+3 another type of alien
+4 directories
+5 main menu
+6 mouse disappear
+7 lives, health (hearts)
+8 power ups
+9 another type of bullet
+10 stars
+11 levels: background changes
+12 obstacles
 '''
 
 def update_screen(stg, screen, player, p_shot, aliens_1, sb):
@@ -26,26 +33,27 @@ def update_screen(stg, screen, player, p_shot, aliens_1, sb):
     # redraw screen with updates
     pygame.display.flip()
 
-def p_shot_update(stg, screen, player, p_shot, aliens_1, stats):
-    p_shot.update()
-    collission_handling(stg, screen, player, p_shot, aliens_1, stats)
+'''add bullet attributes like speed and damage to class file'''
+
+def p_shot_update(stg, screen, player, bullets, aliens_1, stats):
+    bullets.update()
+    collission_handling(stg, screen, player, bullets, aliens_1, stats)
     #repop(ai_settings, screen, ship, aliens, bullets)
 
-def collission_handling(stg, screen, player, p_shot, aliens_1, stats):
+def collission_handling(stg, screen, player, bullets, aliens_1, stats):
     screen_width = screen.get_rect()
-    for shot in p_shot.copy():
+    for shot in bullets.copy():
         if shot.rect.left > screen_width.width:
-            p_shot.remove(shot)
-    attack_damage(stg, screen, player, p_shot, aliens_1, stats)
+            bullets.remove(shot)
+    attack_damage(stg, screen, player, bullets, aliens_1, stats)
 
-def attack_damage(stg, screen, player, p_shot, aliens_1, stats):
-    collisions = pygame.sprite.groupcollide(p_shot, aliens_1, True, False)
+def attack_damage(stg, screen, player, bullets, aliens_1, stats):
+    collisions = pygame.sprite.groupcollide(bullets, aliens_1, True, False)
     if collisions:
         for aliens in collisions.values():
             for i in aliens:
                 #stats.player_score += stg.alien_1_points * len(aliens)
                 i.hit_points -= stg.p_dmg_1
-                print(aliens)
                 if i.hit_points <= 0:
                     aliens_1.remove(i)
                     stats.player_score += stg.alien_1_points * len(aliens)
