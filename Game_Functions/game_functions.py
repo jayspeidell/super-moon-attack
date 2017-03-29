@@ -1,13 +1,15 @@
 import pygame
-from Actors.player import PlayerShip
 from Actors.alien_1 import AlienOne
 from random import choice
-from Weapons.weapons_settings import Weapons as weapon
+from time import sleep
+from Weapons.weapons_settings import Weapons
 
 '''
 Features to add:
+0 Make collision detection generic
 1 hitting alien hurts player
 2 aliens can shoot
+2a explode graphic
 3 another type of alien
 4 directories
 5 main menu
@@ -18,6 +20,7 @@ Features to add:
 10 stars
 11 levels: background changes
 12 obstacles
+
 '''
 
 def update_screen(stg, screen, player, p_shot, aliens_1, sb):
@@ -41,41 +44,72 @@ def p_shot_update(stg, screen, player, bullets, aliens_1, stats):
     collission_handling(stg, screen, player, bullets, aliens_1, stats)
     #repop(ai_settings, screen, ship, aliens, bullets)
 
-def collission_handling(stg, screen, player, bullets, aliens_1, stats):
+
+'''
+following two functions make collision handling and attack damage
+generic, they work for any alien or weapon class
+'''
+
+def bullet_damage(bullets):
+    for bullet in bullets:
+        return bullet.dmg
+
+def enemy_points(enemy):
+    for i in enemy:
+        return i.points
+
+def collission_handling(stg, screen, player, bullets, enemy, stats):
     screen_width = screen.get_rect()
+    dmg = bullet_damage(bullets)
     for shot in bullets.copy():
         if shot.rect.left > screen_width.width:
             bullets.remove(shot)
-    attack_damage(stg, screen, player, bullets, aliens_1, stats)
+    attack_damage(stg, screen, player, bullets, enemy, stats, dmg)
 
-def attack_damage(stg, screen, player, bullets, aliens_1, stats):
-    collisions = pygame.sprite.groupcollide(bullets, aliens_1, True, False)
-    '''attack selector function'''
+def attack_damage(stg, screen, player, bullets, enemy, stats, dmg):
+    collisions = pygame.sprite.groupcollide(bullets, enemy, True, False)
+    points = enemy_points(enemy)
     if collisions:
         for aliens in collisions.values():
             for i in aliens:
-                #stats.player_score += stg.alien_1_points * len(aliens)
-                i.hit_points -= stg.p_dmg_1
+                 #stats.player_score += stg.alien_1_points * len(aliens)
+                i.hit_points -= dmg
                 if i.hit_points <= 0:
-                    aliens_1.remove(i)
-                    stats.player_score += stg.alien_1_points * len(aliens)
+                    enemy.remove(i)
+                    stats.player_score += points * len(aliens)
             #sb.prep_score()
 
 
-'''
-def repop(ai_settings, screen, ship, aliens, bullets):
-    if len(aliens) == 0:
-        bullets.empty()
-        create_fleet(ai_settings, screen, ship, aliens)
-'''
-'''
-def update_aliens(ai_settings, stats, screen, sb, ship, aliens, bullets):
-    check_fleet_edges(ai_settings, aliens)
-    aliens.update()
-    if pygame.sprite.spritecollideany(ship, aliens):
-        ship_hit(ai_settings, stats, screen, sb, ship, aliens, bullets)
-    check_aliens_bottom(ai_settings, stats, screen, sb, ship, aliens, bullets)
-'''
+
+
+def update_aliens(stg, screen, player, bullets, stats, sb, *enemies):
+    enemies = list(enemies)
+    for enemy in enemies:
+        check_aliens_left(enemy)
+        enemy.update(stg, screen)
+        if pygame.sprite.spritecollideany(player, enemy):
+            print("test")
+            player.kill_ship(stg, screen, stats, sb)
+
+"""hit ship, stats """
+def ship_hit(stg, screen, player, bullets, stats, enemy):
+    if stats.ships_left > 0:
+
+        #sb.prep_sips()
+        player.center_ship(stg, screen)
+
+
+    '''
+    else:
+        stats.game_active = False
+        pygame.mouse.set_visible(True)
+    '''
+
+def check_aliens_left(enemy):
+    for baddy in enemy.sprites():
+        if baddy.rect.right < 0:
+            enemy.remove(baddy)
+
 
 def bg_scroll(stg, screen):
     stg.bg_x -= stg.bg_scroll_speed

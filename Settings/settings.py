@@ -4,6 +4,8 @@ class Settings():
 
     def __init__(self):
 
+        self.game_active = False
+
         '''screen settings'''
         self.screen_width = 1000 #1366 768
         self.screen_height = 500
@@ -24,8 +26,9 @@ class Settings():
 
         '''ship attributes'''
         self.player_speed = 8
+        self.lives = 3
+        self.dead = False
 
-        self.shot_type = 1
         '''player bullet level 1 attributes'''
         self.p_shot_speed = 8
         self.p_shots_allowed = 7

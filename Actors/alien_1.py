@@ -12,6 +12,8 @@ class AlienOne(Sprite):
 
         self.hit_points = 10
 
+        self.points = 50
+
         self.rect = self.image.get_rect()
         self.screen_rect = self.screen.get_rect()
 

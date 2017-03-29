@@ -9,13 +9,14 @@ class Scoreboard():
         self.screen_rect = screen.get_rect()
         self.stg = stg
         self.stats = stats
+        self.player = PlayerShip(stg, screen)
 
         self.text_color = (30,30,30)
         self.font = pygame.font.SysFont(None, 48)
 
         #initial score image
         self.prep_score()
-        #self.prep_ships()
+        self.prep_lives(stg, screen, stats)
 
     def prep_score(self):
         score_str = "Score:  " + str(self.stats.player_score)
@@ -26,15 +27,13 @@ class Scoreboard():
         self.score_rect.top = 20
 
     def show_score(self):
-        self.prep_score()
+        self.lives.draw(self.screen)
         self.screen.blit(self.score_image, self.score_rect)
 
-    '''
-    def prep_ships(self):
-        self.ships = Group()
-        for ship_number in range(self.stats.ships_left):
-            ship = Ship(self.ai_settings, self.screen)
-            ship.rect.x = 10 + ship_number * ship.rect.width
-            ship.rect.y = 10
-            self.ships.add(ship)
-    '''
+    def prep_lives(self, stg, screen, stats):
+        self.lives = Group()
+        for life_number in range(stats.ships_left):
+            life = PlayerShip(stg, screen)
+            life.rect.x = 10 + life_number * self.player.rect.width
+            life.rect.y = 10
+            self.lives.add(life)

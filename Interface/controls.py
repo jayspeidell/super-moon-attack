@@ -35,8 +35,7 @@ def check_keyup_events(event, player):
         elif event.key == pygame.K_DOWN:
             player.moving_down = False
 
-def check_events(stg, screen, player, p_shot):
-    #respond to inputs
+def check_events(stg, screen, stats, player, p_shot, sb, button, aliens_1):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -44,18 +43,16 @@ def check_events(stg, screen, player, p_shot):
             check_keydown_events(event, stg, screen, player, p_shot)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, player)
-#        elif event.type == pygame.MOUSEBUTTONDOWN:
-#            mouse_x, mouse_y = pygame.mouse.get_pos()
-#            check_play_button(ai_settings, stats, screen, ship, aliens, bullets, play_button, mouse_x, mouse_y)
+        #elif event.type == pygame.MOUSEBUTTONDOWN:
+        #    mouse_x, mouse_y = pygame.mouse.get_pos()
+        #    check_play_button(stg, screen, stats, player, p_shot, sb, button, mouse_x, mouse_y, aliens_1)
 
-#def check_play_button(ai_settings, stats, screen, ship, aliens, bullets, play_button, mouse_x, mouse_y):
-#    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
-#    if button_clicked and not stats.game_active:
-#        pygame.mouse.set_visible(False)
-#        stats.reset_stats()
-#        stats.game_active = True
-#        aliens.empty()
-#        bullets.empty()
-#        create_fleet(ai_settings, screen, ship, aliens)
-#        ship.center_ship()
-        #sb.prep_ships()
+def check_play_button(stg, screen, stats, player, pshot, sb, button, mouse_x, mouse_y, aliens_1):
+    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not stats.game_active:
+        pygame.mouse.set_visible(False)
+        stats.reset_stats()
+        stats.game_active = True
+        aliens_1.empty()
+        pshot.empty()
+        sb.prep_lives()
