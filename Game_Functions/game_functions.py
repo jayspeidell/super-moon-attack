@@ -77,7 +77,7 @@ def attack_damage(stg, screen, player, bullets, enemy, stats, dmg):
                 if i.hit_points <= 0:
                     enemy.remove(i)
                     stats.player_score += points * len(aliens)
-            #sb.prep_score()
+
 
 
 

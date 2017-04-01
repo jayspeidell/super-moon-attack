@@ -39,10 +39,7 @@ def run_game():
         gf.update_aliens(stg, screen, player, p_shot, stats, sb, aliens_1)
         player.update()
         gf.update_aliens_1(stg, screen, aliens_1)
-
+        sb.prep_score()
         gf.update_screen(stg, screen, player, p_shot, aliens_1, sb)
-
-
-
 
 run_game()
