@@ -1,11 +1,8 @@
 super-moon-attack
 # Super Moon Attack
-##Project Description
+## Project Description
 
-This is a game that I'm making to learn Python project structures and how to implement classes. 
+I made this game to learn Object Oriented Programming a while back. 
 
-It's a basic flying sidescroller game where the player battles aliens above the moon. 
+It's a basic flying sidescroller game using the Pygame engine where the player battles aliens above the moon. It's a little rough around the edges. 
 
-##Status
-
-Incomplete. The game is running, the player can fire at and destroy aliens for points. I need to flesh it out more and create level progression, enemy attacks, a main menu, scoreboard, and more enemies. 
